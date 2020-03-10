@@ -2,55 +2,62 @@ import React, { Component } from 'react';
 
 import axiosPoke from '../../axios/axios-poke';
 
-class Pokemon  extends Component {
+class Pokemon extends Component {
 
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state ={
-            pokemon: [],
-            imagen: [],
-            tipos: []
-        };
+    this.state = {
+      pokemon: [],
+      imagen: [],
+      tipos: []
+    };
+  }
+
+  componentDidMount() {
+    this.buscarPokemon(this.props.datos.name);
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+      this.buscarPokemon(nextProps.datos.name);
+  }
+
+  buscarPokemon(pokemon){
+    axiosPoke.get('/pokemon/' + pokemon + '/')
+      .then(reponse => {
+        this.setState({ pokemon: reponse.data });
+        this.setState({ imagen: reponse.data.sprites.front_default });
+        this.setState({ tipos: this.state.pokemon.types });
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  render() {
+
+    const pokemon = this.state.pokemon;
+    let tipo1 = "";
+    let tipo2 = "";
+    let tipos;
+    if (this.state.tipos.length === 1) {
+      tipo1 = this.state.tipos[0].type.name;
+      tipos = <p> <span className={tipo1}>{tipo1}</span></p>;
+    } else if (this.state.tipos.length === 2) {
+      tipo1 = this.state.tipos[0].type.name;
+      tipo2 = this.state.tipos[1].type.name;
+      tipos = <p> <span className={tipo1}>{tipo1}</span>  <span className={tipo2}>{tipo2}</span></p>
     }
-    
-    componentDidMount() {
-        axiosPoke.get('/pokemon/' + this.props.datos.name + '/')
-          .then(reponse => {
-            this.setState({ pokemon: reponse.data });
-            this.setState({ imagen: reponse.data.sprites.front_default });
-            this.setState({ tipos: this.state.pokemon.types});
-            //console.log(this.state.tipos);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
+    return (
+      <div className="Pokemon">
+        <p className="Nombre">{pokemon.name}</p>
+        <img src={this.state.imagen} alt="" />
+        {tipos}
 
-    render(){
-
-        const pokemon = this.state.pokemon;
-        let tipo1 = "";
-        let tipo2 = "";
-        let tipos;
-        if (this.state.tipos.length === 1) {
-          tipo1 = this.state.tipos[0].type.name;
-          tipos = <p> <span className={tipo1}>{tipo1}</span></p>;
-        }
-        if (this.state.tipos.length === 2) {
-          tipo1 = this.state.tipos[0].type.name;
-          tipo2 = this.state.tipos[1].type.name;
-          tipos = <p> <span className={tipo1}>{tipo1}</span>  <span className={tipo2}>{tipo2}</span></p>
-        }
-        return(
-            <div className="Pokemon">
-                <p className="Nombre">{pokemon.name}</p>
-                <img src={this.state.imagen} alt=""/> 
-                {tipos}
-
-            </div>
-       );
-    }
+      </div>
+    );
+  }
 }
 
 export default Pokemon;

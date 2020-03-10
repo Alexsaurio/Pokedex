@@ -13,43 +13,61 @@ class App extends Component {
 
     this.state = {
       pokeList: [],
-      gene: 1,
-
+      pokeSearch: [],
+      region: "Sin region",
     };
 
     this.handlerClickGeneration = this.handlerClickGeneration.bind(this);
   }
 
   componentDidMount() {
-    axiosPoke.get('/generation/' + this.state.gene + '/')
+    this.handlerClickGeneration(1);
+  }
+
+  handlerClickGeneration(gen) {
+    axiosPoke.get('/generation/' + gen + '/')
+    //axiosPoke.get('/generation/' + gen + '/')
       .then(reponse => {
-        //console.log(reponse.data);
-        this.setState({ pokeList: reponse.data.pokemon_species });
+        this.setState({ 
+          pokeList: reponse.data.pokemon_species,
+          pokeSearch: reponse.data.pokemon_species,
+          region: reponse.data.main_region.name
+        });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  handlerClickGeneration(ge) {
-    this.setState({ gene: ge });
-    //this.componentDidMount();
+  handleInputChange = (event) => {
+    const { value } = event.target;
+
+    let pokeSearch = [];
+    this.state.pokeSearch.forEach((pokemon) => {
+       if (pokemon.name.indexOf(value) !== -1) {
+         pokeSearch.push(pokemon);
+         return;
+       }
+    });
+    this.setState({ 
+      pokeList: pokeSearch
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <SearchBar />
+        <SearchBar Buscar={e => this.handleInputChange(e)}/>
         <Grid
           container
           direction="row"
           justify="center"
           alignItems="center">
-          {/* {this.state.gene} */}
-          <Button variant="outlined" onClick={() => this.handlerClickGeneration(1)}> Generacion I</Button>
+          <Button variant="outlined" onClick={() => this.handlerClickGeneration(1)}> Generacion I</Button> 
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(2)}> Generacion II</Button>
+          <Button variant="outlined" onClick={() => this.handlerClickGeneration(3)}> Generacion III</Button>
         </Grid>
-        <PokemonList PokeList={this.state.pokeList} />
+        <PokemonList Region={ this.state.region } PokeList={this.state.pokeList} />
       </div>
     );
   }

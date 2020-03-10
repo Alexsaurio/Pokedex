@@ -18,6 +18,7 @@ class SearchBar extends Component {
                     <FormControl className="Search_Form" fullWidth variant="outlined" color="secondary">
                         <InputLabel htmlFor="outlined-adornment-amount">Buscador pokemón</InputLabel>
                         <OutlinedInput
+                            onChange={this.props.Buscar}
                             id="outlined-adornment-amount"
                             labelWidth={140}
                         />
