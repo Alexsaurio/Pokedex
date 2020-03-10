@@ -23,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     axiosPoke.get('/generation/' + this.state.gene + '/')
       .then(reponse => {
-        console.log(reponse.data);
+        //console.log(reponse.data);
         this.setState({ pokeList: reponse.data.pokemon_species });
       })
       .catch(error => {
@@ -45,7 +45,7 @@ class App extends Component {
           direction="row"
           justify="center"
           alignItems="center">
-          {this.state.gene}
+          {/* {this.state.gene} */}
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(1)}> Generacion I</Button>
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(2)}> Generacion II</Button>
         </Grid>
