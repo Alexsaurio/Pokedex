@@ -37,7 +37,7 @@ class Pokemon extends Component {
 
   render() {
 
-    const pokemon = this.state.pokemon;
+    const {pokemon, imagen }= this.state;
     let tipo1 = "";
     let tipo2 = "";
     let tipos;
@@ -50,9 +50,9 @@ class Pokemon extends Component {
       tipos = <p> <span className={tipo1}>{tipo1}</span>  <span className={tipo2}>{tipo2}</span></p>
     }
     return (
-      <div className="Pokemon">
+      <div className="Pokemon" onClick={e => this.props.PokemonView(e, pokemon, imagen)}>
         <p className="Nombre">{pokemon.name}</p>
-        <img src={this.state.imagen} alt="" />
+        <img src={this.state.imagen} alt={pokemon.name} />
         {tipos}
 
       </div>

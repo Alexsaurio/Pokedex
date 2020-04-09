@@ -6,7 +6,6 @@ import axiosPoke from '../axios/axios-poke';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 class App extends Component {
@@ -78,6 +77,7 @@ class App extends Component {
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(1)}> Generacion I</Button> 
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(2)}> Generacion II</Button>
           <Button variant="outlined" onClick={() => this.handlerClickGeneration(3)}> Generacion III</Button>
+          <Button variant="outlined" onClick={() => this.handlerClickGeneration(4)}> Generacion IV</Button>
         </Grid>
         
         {Lista}
