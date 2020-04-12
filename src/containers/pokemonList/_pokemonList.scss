@@ -3,8 +3,60 @@ strong{
 }
 
 .PokemonView{
+    font-size: 15px;
+    text-align: center;
     h1{
+        font-size: 18px;
         letter-spacing: 2px;
         text-transform: uppercase;
     }
+    h2{
+        font-size: 15px;
+        border-bottom: 1px solid black;
+    }
+    h2,.date{
+        margin-bottom: 8px;
+        margin-top: 5px;
+        display: inline-block;
+        width: 100px;
+    }
+    h3{
+        letter-spacing: 2px;  
+    }
+
+    span{
+        display: inline-block;
+        border-radius: 7px;
+        color: white;
+        font-size: 12px;
+        padding: 5px 10px;
+        text-align: center;
+        text-transform: capitalize;
+    }
+
+    .habi{
+        margin: 7px 0;
+        text-transform: capitalize !important;
+        strong{
+            text-transform: capitalize !important;
+        }
+    }
+
+    .stat{
+        margin: 5px 0;
+        background: grey;
+        display: inline-block;
+        min-width: 50%;
+        strong{
+            text-transform: capitalize !important;
+        }
+    }
+
+    .Silueta{
+        img{
+            background-color: rgb(252, 88, 88);
+            display: inline-block;
+        }
+    }
+
 }
